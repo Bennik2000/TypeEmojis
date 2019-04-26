@@ -63,7 +63,16 @@ namespace EmojiKeyboard
                         var key = (char) inBuffer[0];
                         if (isDownCapslock ^ isDownShift && char.IsLetter(key)) key = char.ToUpper(key);
                         var e = new KeyPressEventArgs(key);
-                        SKeyPress.Invoke(null, e);
+
+                        try
+                        {
+                            SKeyPress.Invoke(null, e);
+                        }
+                        catch (Exception)
+                        {
+                            // ignored
+                        }
+
                         handled = e.Handled;
                     }
                 }
@@ -79,21 +88,16 @@ namespace EmojiKeyboard
 
         private static void EnsureSubscribedToGlobalKeyboardEvents()
         {
+            if (_sKeyboardHookHandle != 0) return;
+
+            _sKeyboardDelegate = KeyboardHookProc;
+            _sKeyboardHookHandle = SetWindowsHookEx(WhKeyboardLl, _sKeyboardDelegate,
+                Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
+
             if (_sKeyboardHookHandle == 0)
             {
-                _sKeyboardDelegate = KeyboardHookProc;
-                _sKeyboardHookHandle = SetWindowsHookEx(
-                    WhKeyboardLl,
-                    _sKeyboardDelegate,
-                    Marshal.GetHINSTANCE(
-                        Assembly.GetExecutingAssembly().GetModules()[0]),
-                    0);
-
-                if (_sKeyboardHookHandle == 0)
-                {
-                    var errorCode = Marshal.GetLastWin32Error();
-                    throw new Win32Exception(errorCode);
-                }
+                var errorCode = Marshal.GetLastWin32Error();
+                throw new Win32Exception(errorCode);
             }
         }
 

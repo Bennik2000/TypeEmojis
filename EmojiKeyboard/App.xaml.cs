@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace EmojiKeyboard
 {
@@ -13,5 +7,26 @@ namespace EmojiKeyboard
     /// </summary>
     public partial class App : Application
     {
+        private KeyboardEventProcessor _keyboardEventProcessor;
+        private TrayIcon _trayIcon;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            
+            _keyboardEventProcessor = new KeyboardEventProcessor();
+            _keyboardEventProcessor.Start();
+
+            _trayIcon = new TrayIcon();
+            _trayIcon.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            _keyboardEventProcessor.Stop();
+            _trayIcon.Hide();
+        }
     }
 }
