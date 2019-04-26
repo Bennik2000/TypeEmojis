@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmojiKeyboard.Properties
+namespace TypeEmojis.Properties
 {
 
 

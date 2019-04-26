@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmojiKeyboard\EmojiKeyboard.csproj">
-      <Project>{0F0BE4F0-7D21-44E7-BDF9-714981357BD7}</Project>
-      <Name>EmojiKeyboard</Name>
+    <ProjectReference Include="..\TypeEmojis\TypeEmojis.csproj">
+      <Project>{0538CCEC-A052-414D-B25C-AE5E08D2345E}</Project>
+      <Name>TypeEmojis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

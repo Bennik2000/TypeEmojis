@@ -1,6 +1,4 @@
-﻿using System;
-using EmojiKeyboard;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TypeEmojis.Test
 {

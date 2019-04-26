@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace EmojiKeyboard
+namespace TypeEmojis
 {
     public class KeyboardEventProcessor
     {
