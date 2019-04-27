@@ -11,6 +11,6 @@ Run the application and start typing in your favourite chat program
 | <3  | ❤️ |
 | O:) | 😇 |
 | :*  | 😘 |
-| *.* | 😍 |
+| \*.\* | 😍 |
 | O.O | 😱 |
 | :,) | 😅 |
