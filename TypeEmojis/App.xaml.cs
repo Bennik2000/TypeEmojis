@@ -14,7 +14,9 @@ namespace TypeEmojis
         {
             base.OnStartup(e);
             
-            _keyboardEventProcessor = new KeyboardEventProcessor();
+            var fileReader = new EmojiListFileReader("emojis.cfg");
+            
+            _keyboardEventProcessor = new KeyboardEventProcessor(fileReader.KeyValueDictionary);
             _keyboardEventProcessor.Start();
 
             _trayIcon = new TrayIcon();

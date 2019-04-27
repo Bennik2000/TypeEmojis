@@ -10,25 +10,12 @@ namespace TypeEmojis
 
         private bool IsHandling { get; set; }
 
-        private Dictionary<string, string> EmojiLookup { get; set; }
+        private Dictionary<string, string> EmojiList { get; set; }
 
 
-        public KeyboardEventProcessor()
+        public KeyboardEventProcessor(Dictionary<string, string> emojiList)
         {
-            EmojiLookup = new Dictionary<string, string>
-            {
-                {":)", "😊"},
-                {":(", "😕"},
-                {":P", "😛"},
-                {"<3", "❤️"},
-                {":?", "🤔"},
-                {"O:)", "😇"},
-                {":*", "😘"},
-                {"*.*", "😍"},
-                {"O.O", "😱"},
-                {":,)", "😅"}
-            };
-
+            EmojiList = emojiList;
             CapturedCharacters = string.Empty;
         }
 
@@ -50,7 +37,7 @@ namespace TypeEmojis
 
             if (CapturedCharacters.Length == 0)
             {
-                if (EmojiLookup.Keys.Any(p => p.StartsWith(args.KeyChar.ToString())))
+                if (EmojiList.Keys.Any(p => p.StartsWith(args.KeyChar.ToString())))
                 {
                     CapturedCharacters += args.KeyChar;
                     args.Handled = true;
@@ -60,13 +47,13 @@ namespace TypeEmojis
             {
                 CapturedCharacters += args.KeyChar;
 
-                var possibleResults = EmojiLookup.Keys
+                var possibleResults = EmojiList.Keys
                     .Where(k => k.StartsWith(CapturedCharacters))
                     .ToList();
 
                 if (possibleResults.Any(r => r == CapturedCharacters))
                 {
-                    SendKeys.SendWait(ExcapeForSendKeys(EmojiLookup[CapturedCharacters]));
+                    SendKeys.SendWait(ExcapeForSendKeys(EmojiList[CapturedCharacters]));
                     args.Handled = true;
                     CapturedCharacters = string.Empty;
                 }
