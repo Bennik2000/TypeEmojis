@@ -15,8 +15,9 @@ namespace TypeEmojis
             base.OnStartup(e);
             
             var fileReader = new EmojiListFileReader("emojis.cfg");
-            
-            _keyboardEventProcessor = new KeyboardEventProcessor(fileReader.KeyValueDictionary);
+            var blockedAppsReader = new BlockedAppsReader("blocked_apps.cfg");
+
+            _keyboardEventProcessor = new KeyboardEventProcessor(fileReader.KeyValueDictionary, blockedAppsReader.GetBlockedApps());
             _keyboardEventProcessor.Start();
 
             _trayIcon = new TrayIcon();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,11 +13,13 @@ namespace TypeEmojis
 
         private Dictionary<string, string> EmojiList { get; set; }
 
+        private List<string> ApplicationBlackList { get; set; }
 
-        public KeyboardEventProcessor(Dictionary<string, string> emojiList)
+        public KeyboardEventProcessor(Dictionary<string, string> emojiList, List<string> applicationBlackList)
         {
             EmojiList = emojiList;
             CapturedCharacters = string.Empty;
+            ApplicationBlackList = applicationBlackList;
         }
 
         public void Start()
@@ -33,7 +36,17 @@ namespace TypeEmojis
         private void OnKeyPress(object sender, KeyPressEventArgs args)
         {
             if (IsHandling) return;
+
+            var process = WindowsApi.GetActiveProcess().ProcessName;
+            if (ApplicationBlackList.Contains(process))
+            {
+                CapturedCharacters = string.Empty;
+                return;
+            }
+
+
             IsHandling = true;
+
 
             if (CapturedCharacters.Length == 0)
             {
@@ -69,7 +82,7 @@ namespace TypeEmojis
                     args.Handled = true;
                 }
             }
-
+            
             IsHandling = false;
         }
 
