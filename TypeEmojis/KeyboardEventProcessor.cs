@@ -13,13 +13,13 @@ namespace TypeEmojis
 
         private Dictionary<string, string> EmojiList { get; set; }
 
-        private List<string> ApplicationBlackList { get; set; }
+        private List<string> ApplicationWhiteList { get; set; }
 
-        public KeyboardEventProcessor(Dictionary<string, string> emojiList, List<string> applicationBlackList)
+        public KeyboardEventProcessor(Dictionary<string, string> emojiList, List<string> applicationWhiteList)
         {
             EmojiList = emojiList;
             CapturedCharacters = string.Empty;
-            ApplicationBlackList = applicationBlackList;
+            ApplicationWhiteList = applicationWhiteList;
         }
 
         public void Start()
@@ -38,7 +38,7 @@ namespace TypeEmojis
             if (IsHandling) return;
 
             var process = WindowsApi.GetActiveProcess().ProcessName;
-            if (ApplicationBlackList.Contains(process))
+            if (!ApplicationWhiteList.Contains(process))
             {
                 CapturedCharacters = string.Empty;
                 return;

@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BlockedAppsReader.cs" />
+    <Compile Include="WhitelistedAppsReader.cs" />
     <Compile Include="EmojiListFileReader.cs" />
     <Compile Include="Trayicon.cs" />
     <Compile Include="WindowsApi.cs" />
@@ -96,7 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="blocked_apps.cfg">
+    <None Include="allowed_apps.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="emojis.cfg">

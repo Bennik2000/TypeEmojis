@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace TypeEmojis
 {
-    class BlockedAppsReader
+    class WhitelistedAppsReader
     {
         private string Path { get; set; }
 
-        public BlockedAppsReader(string path)
+        public WhitelistedAppsReader(string path)
         {
             Path = path;
         }
 
-        public List<string> GetBlockedApps()
+        public List<string> GetWhitelistedApps()
         {
             try
             {
